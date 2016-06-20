@@ -1,5 +1,4 @@
 require 'net/http'
-require 'json'
 
 module RedmineCommandIssueStatusChange
   class CustomFieldChange < Redmine::Hook::ViewListener
@@ -15,9 +14,8 @@ module RedmineCommandIssueStatusChange
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Post.new("/hooks/issue-changed")
       request.add_field('Content-Type', 'application/json')
-      request.body = {'credentials' => {'username' => JSON.encode(@issue) }}
+      request.body = URI.encode_www_form({'issue_id' => @issue.id})
       response = http.request(request)
     end
   end
 end
-
