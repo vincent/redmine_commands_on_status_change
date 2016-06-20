@@ -10,7 +10,7 @@ module RedmineCommandIssueStatusChange
     def update_field(context)
         @issue = context[:issue]
 
-      uri = URI.parse("http://amv8-qa.cloudapp.net:7878")
+      uri = URI.parse("url")
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Post.new("/hooks/issue-changed")
       request.add_field('Content-Type', 'application/json')
